@@ -49,7 +49,16 @@ function submitHandler(e){
 
 function onceData() {
   let ref = db.ref("/people");
-  ref.once('value').then(function(snapshots){
+  // ref.once('value').then(function(snapshots){
+  //   let data = [];
+  //   snapshots.forEach(snapshot => {
+  //     let m = snapshot.val()
+  //     m.key = snapshot.key
+  //     data.push(m)
+  //   })
+  //   renderMarkUp(data)
+  // })
+  ref.on('value',function(snapshots){
     let data = [];
     snapshots.forEach(snapshot => {
       let m = snapshot.val()
@@ -57,7 +66,6 @@ function onceData() {
       data.push(m)
     })
     renderMarkUp(data)
-    
   })
 }
 
