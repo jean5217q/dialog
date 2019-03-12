@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Document</title>
+    <link rel="stylesheet" href="./style/style.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700i,900" rel="stylesheet"/>
+  </head>
+  <body>
+    <div class="container">
+      <div class="title-wrap"><span>Web Class Dialog</span></div>
+      <div class="dialog-wrap">
+        <div class="dialog-block-wrap">
+          <div class="dialog-block">
+            <div class="dialog-left">
+              <div class="dialog-photo" style="background-color: rgb(255, 142, 142)"></div>
+              <div class="dialog-photo" style="background-color: rgb(255, 186, 186)"></div>
+              <div class="dialog-photo" style="background-color: rgb(255, 94, 94)"></div>
+            </div>
+            <div class="dialog-right">
+              <div class="dialog-name">Amber</div>
+              <div class="dialog-text">Today is a nice day!!!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <form class="add-dialog">
+        <input id="name" type="text" placeholder="name"/>
+        <input id="text" type="text" placeholder="add somethings"/>
+        <button type="submit">SUBMIT</button>
+      </form>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
