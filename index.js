@@ -31,7 +31,12 @@ function submitHandler(e){
   e.preventDefault()
   const name = inputName.value
   const text = inputText.value
-  if(!text&&!name) return
+  if(!text||!name) return
+  if(text.indexOf('alert') !==-1||text.indexOf('replace') !==-1) {
+    inputName.value = ''
+    inputText.value = ''
+    return
+  }
   const color = randamcolor()
   let ref = db.ref("/people");
   ref.push({
