@@ -32,7 +32,9 @@ function submitHandler(e){
   const name = inputName.value
   const text = inputText.value
   if(!text||!name) return
-  if(text.indexOf('alert') !==-1||text.indexOf('replace') !==-1) {
+  if(text.indexOf('alert') !==-1||text.indexOf('replace') !==-1 ||
+  text.indexOf('<') !==-1 || text.indexOf('>') !==-1
+  ) {
     inputName.value = ''
     inputText.value = ''
     return
