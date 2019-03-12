@@ -20,11 +20,6 @@ firebase.initializeApp(config);
 
 let db = firebase.database();
 
-
-
-
-
-
 form.addEventListener('submit',submitHandler)
 
 function submitHandler(e){
@@ -32,13 +27,6 @@ function submitHandler(e){
   const name = inputName.value
   const text = inputText.value
   if(!text||!name) return
-  if(text.indexOf('alert') !==-1||text.indexOf('replace') !==-1 ||
-  text.indexOf('<') !==-1 || text.indexOf('>') !==-1
-  ) {
-    inputName.value = ''
-    inputText.value = ''
-    return
-  }
   const color = randamcolor()
   let ref = db.ref("/people");
   ref.push({
@@ -72,32 +60,13 @@ function onceData() {
       m.key = snapshot.key
       data.push(m)
     })
-    renderMarkUp(data)
+    data.forEach(el=>item(el))
   })
 }
 
 window.onload = onceData
 
-function renderMarkUp(data){
-  let markup = ''
-  data.forEach(el=>{
-  markup = markup + `
-  <div class="dialog-block">
-    <div class="dialog-left">
-      <div class="dialog-photo" style="background-color: ${el.color[0]}"></div>
-      <div class="dialog-photo" style="background-color: ${el.color[1]}"></div>
-      <div class="dialog-photo" style="background-color: ${el.color[2]}"></div>
-    </div>
-    <div class="dialog-right">
-      <div class="dialog-name">${el.name}</div>
-      <div class="dialog-text">${el.text}</div>
-    </div>
-  </div>
-  `
-  parent.innerHTML = markup
-  })
-  
-}
+
 
 
 function randamcolor(){
@@ -108,4 +77,37 @@ function randamcolor(){
   const color2 = `rgb(${r-20},${g-20},${b-20})`
   const color3 = `rgb(${r+20},${g+20},${b+20})`
   return [color1,color2,color3]
+}
+
+function item(data) {
+  //外包
+  const block = document.createElement('div')
+  block.className = 'dialog-block'
+  // 左圖
+  const blockLeft = document.createElement('div')
+  blockLeft.className = 'dialog-left'
+  data.color.forEach
+  data.color.forEach(color=>{
+    const photo = document.createElement('div')
+    photo.className = 'dialog-photo'
+    photo.style.backgroundColor = `${color}`
+    blockLeft.appendChild(photo)
+  })
+  //右圖
+  const blockRight = document.createElement('div')
+  blockRight.className = 'dialog-right'
+  // name
+  const name = document.createElement('div')
+  name.className = 'dialog-name'
+  name.textContent = data.name
+  // text
+  const text = document.createElement('div')
+  text.className = 'dialog-text'
+  text.textContent = data.text
+  blockRight.appendChild(name)
+  blockRight.appendChild(text)
+  //串接
+  parent.appendChild(block)
+  block.appendChild(blockLeft)
+  block.appendChild(blockRight)
 }
