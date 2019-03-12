@@ -39,25 +39,34 @@ function submitHandler(e){
     text: text,
     color: color
   })
-  renderMarkUp(name,text,color)
-  console.log(dialogWrap.scrollHeight)
+  console.log(name,text,color)
   dialogWrap.scrollTop = dialogWrap.scrollHeight
   inputName.value = ''
   inputText.value = ''
+  parent.innerHTML=''
+  onceData()
 }
 
-function renderData() {
+function onceData() {
   let ref = db.ref("/people");
-  ref.on('value').then(function(snapshot){
-    var val = snapshot.val()
-    val.forEach(el=>renderMarkUp(el))
+  ref.once('value').then(function(snapshots){
+    let data = [];
+    snapshots.forEach(snapshot => {
+      let m = snapshot.val()
+      m.key = snapshot.key
+      data.push(m)
+    })
+    renderMarkUp(data)
+    
   })
 }
 
-renderData()
+window.onload = onceData
 
-function renderMarkUp(el){
-  const markup = `
+function renderMarkUp(data){
+  let markup = ''
+  data.forEach(el=>{
+  markup = markup + `
   <div class="dialog-block">
     <div class="dialog-left">
       <div class="dialog-photo" style="background-color: ${el.color[0]}"></div>
@@ -70,7 +79,9 @@ function renderMarkUp(el){
     </div>
   </div>
   `
-  parent.insertAdjacentHTML('beforeend',markup)
+  parent.innerHTML = markup
+  })
+  
 }
 
 
